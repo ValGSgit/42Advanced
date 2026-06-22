@@ -18,7 +18,9 @@ import datetime
 import time
 import datetime
 
-# time since epoch
+# time since epoc
+
+
 secs = time.time()
 
 # datetime module has a datetime class 

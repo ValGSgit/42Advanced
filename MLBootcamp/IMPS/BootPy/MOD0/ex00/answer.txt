@@ -1,0 +1,20 @@
+1) Output a list of installed packages and their versions.
+
+conda list OR conda list --export > requirements.txt
+
+2) Show the package metadata of numpy.
+
+conda search numpy --info OR pip show numpy
+
+3) Remove the package numpy.
+
+conda remove numpy OR pip uninstall numpy
+
+4) (Re)install the package numpy.
+
+conda install numpy
+
+5) Freeze your python packages and their versions in a requirements.txt file you have to turn-in
+
+conda env export --no-builds > environment.yml #This preserves conda deps and works best if env managed by conda and to reinstall packages from an export file: conda create -n myenv --file package-list
+

@@ -16,8 +16,6 @@ ft_list[1] = "World"           # mutate by index
 ft_list.append("Extra")        # add to end
 print("After [1]='World':     ", ft_list)
 ft_list.remove("Extra")        # remove by value
-ft_list.insert(1, "World")     # insert at index (will create duplicate)
-ft_list.pop()                  # remove last element
 print("Final:                 ", ft_list)
 
 # ===========================================================================
@@ -71,3 +69,4 @@ print(ft_list)
 print(ft_tuple)
 print(ft_set)
 print(ft_dict)
+

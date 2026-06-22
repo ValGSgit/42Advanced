@@ -26,3 +26,20 @@ if __name__ == "__main__":
 #   python whatis.py 0       -> I'm Even.
 #   python whatis.py Hi!     -> AssertionError: argument is not an integer
 #   python whatis.py 13 5    -> AssertionError: more than one argument is provided
+import numpy as np
+
+arr = np.array(([1, 2, 3], [3, 4, 5])) #tuple of lists
+arr2 = np.array([[1, 2, 3], [3, 4, 5]]) #list of lists
+arr3 = np.array([{1, 2, 3}, {3, 4, 5}]) #list of sets
+arr4 = np.array(((1, 2, 3), (3, 4, 5))) #tuple of tuples
+
+
+print(arr)
+print(arr2)
+print(arr3)
+print(arr4)
+
+print(arr.shape)
+print(arr2.shape)
+print(arr3.shape)
+print(arr4.shape)

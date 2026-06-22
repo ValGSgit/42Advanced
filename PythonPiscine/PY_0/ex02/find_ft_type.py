@@ -33,6 +33,8 @@ def all_thing_is_obj(obj: any) -> int:
 #         dict: "Dict",
 #         str: f"{obj} is in the kitchen",
 #     }
+#     method resolution order for inheritance chain for the actual class of an object
+#     and filtered only for the types asked by subject (without it is basically another implementation of isinstance)
 #     match = next((t for t in type(obj).__mro__ if t in types), None)
 #     if match:
 #         print(f"{types[match]} : {type(obj)}")
