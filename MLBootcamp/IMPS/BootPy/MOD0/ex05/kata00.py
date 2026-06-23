@@ -1,3 +1,15 @@
+"""Exercise 05: The right format - kata00
+
+Description:
+    Display a tuple of integers in the specified format.
+
+Requirements:
+    - The kata variable is always a tuple and can only be filled with integers.
+    - Display: "The 3 numbers are: 19, 42, 21"
+
+Forbidden functions: None
+"""
+
 kata = (19, 42, 21)
 
 

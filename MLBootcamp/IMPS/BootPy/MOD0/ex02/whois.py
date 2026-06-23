@@ -1,3 +1,17 @@
+"""Exercise 02: The Odd, the Even and the Zero
+
+Description:
+    Make a program that takes a number as argument, checks whether it is
+    odd, even or zero, and prints the result.
+
+Requirements:
+    - If more than one argument is provided or if the argument is not
+      an integer, print an error message.
+    - If no argument is provided, do nothing or print an usage.
+
+Forbidden functions: None
+"""
+
 import sys
 
 def main():

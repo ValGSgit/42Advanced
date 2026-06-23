@@ -2,8 +2,8 @@ import sys
 import string
 
 def filtah(S: str, N :int):
-    """"""
-    return [word.strip(string.punctuation) for word in S.split() if len(word.strip(string.punctuation)) > N]
+    """Removes punctuation marks for space splitted words if the stripped word is more than N"""
+    return [word.strip(string.punctuation) for word in S.split() if len(word.strip(string.punctuation)) > N] #easy right?
 
 def main():
     """In S, find WORDS longer than N while S not punctuation or space"""

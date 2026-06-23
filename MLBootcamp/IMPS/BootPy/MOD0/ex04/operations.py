@@ -1,3 +1,20 @@
+"""Exercise 04: Elementary
+
+Description:
+    Write a program that takes two integers A and B as arguments and
+    prints the result of the following operations:
+    Sum (A+B), Difference (A-B), Product (A*B), Quotient (A/B), Remainder (A%B)
+
+Requirements:
+    - If more or less than two arguments are provided or if one of the
+      arguments is not an integer, print an error message.
+    - If no argument is provided, do nothing or print an usage.
+    - If an operation is impossible, print an error message instead of
+      a numerical result.
+
+Forbidden functions: None
+"""
+
 import sys
 
 def wakawaka(a: int, b: int):
