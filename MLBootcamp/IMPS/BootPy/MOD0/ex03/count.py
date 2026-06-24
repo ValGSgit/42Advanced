@@ -30,7 +30,7 @@ def main():
     if len(sys.argv) == 2:
         user_input = sys.argv[1]
     else:
-        return print("Usage: python count.py <Single argument required>")
+        return print("Usage: python count.py <single argument required>")
     text_analyzer(user_input)
 
 if __name__ == "__main__":

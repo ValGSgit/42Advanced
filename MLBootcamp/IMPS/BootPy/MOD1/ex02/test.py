@@ -41,13 +41,21 @@ def main():
     print("x - y =", x - y)                    # [[-3.0], [-3.0], [-3.0]]
     print("y - x =", y - x)                    # [[3.0], [3.0], [3.0]]
 
-    # ----- Multiplication (mul & rmul) with a scalar -----
-    print("\n=== Multiplication ===")
+    # ----- Multiplication (mul & rmul) with a scalar float-----
+    print("\n=== Multiplication (int) ===")
     v = Vector([[0.0], [1.0], [2.0], [3.0]])
     print("v * 5 =", v * 5)                    # [[0.0], [5.0], [10.0], [15.0]]
     print("5 * v =", 5 * v)                    # same (rmul)
     r = Vector([[0.0, 1.0, 2.0, 3.0]])
     print("r * 5 =", r * 5)
+
+    # ----- Multiplication (mul & rmul) with a scalar int-----
+    print("\n=== Multiplication (float) ===")
+    v = Vector([[0.0], [1.0], [2.0], [3.0]])
+    print("v * 5 =", v * 5.69)                    # [[0.0], [5.0], [10.0], [15.0]]
+    print("5 * v =", 5.69 * v)                    # same (rmul)
+    r = Vector([[0.0, 1.0, 2.0, 3.0]])
+    print("r * 5 =", r * 5.42)
 
     # ----- Division (truediv) with a scalar -----
     print("\n=== Division ===")
