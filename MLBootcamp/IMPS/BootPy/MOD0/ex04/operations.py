@@ -18,7 +18,7 @@ Forbidden functions: None
 import sys
 
 def wakawaka(a: int, b: int):
-    if a == 0 or b == 0:
+    if b == 0:
         quot = "ERROR (division by zero)"
         rem = "ERROR (modulo by zero)"
     else:

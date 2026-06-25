@@ -19,14 +19,8 @@ def main():
         user_input = sys.argv[1:]
     else:
         return print("Usage: python exec.py <str1> <str2> <str69> <etc>")
-    theStr = ""
-    for arg in reversed(user_input):
-        if not arg == user_input[-1]:
-            theStr += " "
-        reversed_arg = arg[::-1] #start=0,stop=0,step=-1
-        swapped_case = reversed_arg.swapcase()
-        theStr += swapped_case
-        
+    merged = " ".join(user_input)
+    theStr = merged[::-1].swapcase() #reverse the whole string, then swap case
     print(theStr)
 
 

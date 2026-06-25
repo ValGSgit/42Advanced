@@ -22,7 +22,9 @@ def main():
     oof = str(user_input)
     try:
         num = int(oof)
-        if int(num) % 2 == 0:
+        if num == 0:
+            print("Is Zero")
+        elif num % 2 == 0:
             print("Is Even")
         else:
             print("Is weird, in other words odd")

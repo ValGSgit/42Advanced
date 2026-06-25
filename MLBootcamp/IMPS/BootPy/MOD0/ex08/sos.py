@@ -43,8 +43,7 @@ def main():
         return print("Usage: python sos.py <str1> <strN>")
     try:
         print(morse(" ".join(sys.argv[1:])))
-    except:
-        AssertionError
+    except AssertionError:
         print("Invalid characters in input")
 
 
