@@ -18,6 +18,6 @@ if __name__ == "__main__":
     ))
 
     if bank.transfer('William John', 'Smith Jane', 545.0) is False:
-        print('Failed')
+        print(f"Failed because: {bank.is_corrupt('Smith Jane')}")
     else:
         print('Success')

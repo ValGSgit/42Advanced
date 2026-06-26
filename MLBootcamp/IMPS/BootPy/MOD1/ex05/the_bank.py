@@ -28,28 +28,15 @@ class Bank(object):
         @return
         True if success, False if an error occured
         """
-        # test if new_account is an Account() instance and if
-        # it can be appended to the attribute accounts
-        # ... Your code
-        try:
-            if isinstance(new_account, Account):
-                check = self.get_account(new_account.name)
-                if not check == None and check.name == new_account.name:
-                    print("failed")
-                    return False
-                
-                self.accounts.append(new_account)
-                print("Account added")
-                return True
-            else:
-                return False
-
-        except Exception as e:
-            print(f"Exception: {e}")
+        # add only checks the type of new_account and that no account
+        # already stored shares the same name (no corruption check here).
+        if not isinstance(new_account, Account):
             return False
+        if self.get_account(new_account.name) is not None:
+            return False
+        self.accounts.append(new_account)
+        return True
 
-    
-        
     def transfer(self, origin, dest, amount) -> bool:
         """" Perform the fund transfer
         @origin: str(name) of the first account
@@ -60,23 +47,29 @@ class Bank(object):
         True if success, False if an error occured
         """
         if not isinstance(origin, str) or not isinstance(dest, str):
-            print("Error: origin or dest are not str")
             return False
-        if not isinstance(amount, (int, float)) or amount < 0:
-            print("Error: amount is not a number or less than 1")
+        if not isinstance(amount, (int, float)) or isinstance(amount, bool):
+            return False
+        if amount < 0:
             return False
         sender = self.get_account(origin)
-        rec = self.get_account(dest)
-        if not sender == None and not rec == None:
-            if sender.value < amount:
-                print(f"Sender had less than {amount}: transaction failed")
-                return False
-            rec.transfer(amount)
+        receiver = self.get_account(dest)
+        if sender is None or receiver is None:
+            return False
+        # both accounts must be valid (not corrupted) before any movement
+        if self.is_corrupt(sender) or self.is_corrupt(receiver):
+            return False
+        # a transfer to the same account is valid but moves no funds
+        if sender is receiver:
             return True
-        return False
+        if sender.value < amount:
+            return False
+        sender.transfer(-amount)
+        receiver.transfer(amount)
+        return True
 
     def fix_account(self, name) -> bool:
-        """ 
+        """
         YOU WILL HAVE TO MODIFY THE INSTANCES ATTRIBUTES IN ORDER TO FIX THEM.
         fix account associated to name if corrupted
         @name:
@@ -84,37 +77,51 @@ class Bank(object):
         @return True if success, False if an error occured
         """
         if not isinstance(name, str):
-            print("Cant fix since name is not a str")
             return False
-        fix = self.get_account(name)
-        if fix is None:
-            print("No account with that name")
+        account = self.get_account(name)
+        if account is None:
             return False
-        to_fix = self.is_corrupt(fix)
-        if len(to_fix) == 0:
-            print("Account not corrupted")
+        if not self.is_corrupt(account):
             return True
-        else:
-            for var in to_fix:
-                
-        return False
-                
-    def is_corrupt(self, name):
-        """check everything and return corrupted or None when ok"""
-        check = self.get_account(name)
-        brokenVars = []
-        if len(check.__dict__) % 2 == 0:
-            brokenVars.append('Uneven')
-        for key, val in check.__dict__.items():
+        # 1. drop every attribute whose name starts with 'b'
+        for key in list(account.__dict__):
             if key.startswith('b'):
-                brokenVars.append(key)
-            if key == 'name' and not isinstance(val ,str):
-                brokenVars.append(key)
-            if key == 'id' and not isinstance(val, int):
-                brokenVars.append(key)
-            if key == 'value' and not isinstance(val, (int, float)):
-                brokenVars.append(key)
-        return None
+                delattr(account, key)
+        # 2. guarantee a location attribute (zip/addr) exists
+        if not any(k.startswith('zip') or k.startswith('addr')
+                   for k in account.__dict__):
+            account.addr = ''
+        # 3. fix the parity last: a valid account has an odd attr count
+        if len(account.__dict__) % 2 == 0:
+            account.fixed = True
+        return not self.is_corrupt(account)
+
+    def is_corrupt(self, account) -> list:
+        """Return the list of corruption issues (empty list == valid)."""
+        attrs = account.__dict__
+        issues = []
+        # even number of attributes
+        if len(attrs) % 2 == 0:
+            issues.append('even number of attributes')
+        # an attribute starting with 'b'
+        for key in attrs:
+            if key.startswith('b'):
+                issues.append(f"attribute '{key}' starts with b")
+        # no attribute starting with zip or addr
+        if not any(k.startswith('zip') or k.startswith('addr') for k in attrs):
+            issues.append('no zip/addr attribute')
+        # name, id and value must be present
+        for required in ('name', 'id', 'value'):
+            if required not in attrs:
+                issues.append(f"missing '{required}' attribute")
+        # type checks
+        if 'name' in attrs and not isinstance(attrs['name'], str):
+            issues.append('name is not a str')
+        if 'id' in attrs and not isinstance(attrs['id'], int):
+            issues.append('id is not an int')
+        if 'value' in attrs and not isinstance(attrs['value'], (int, float)):
+            issues.append('value is not an int or float')
+        return issues
 
     def get_account(self, name):
         for account in self.accounts:
