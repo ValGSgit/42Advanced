@@ -1,2 +1,4 @@
-# Marks my_minipack as a package so `import my_minipack.progress` /
-# `import my_minipack.logger` work after installation.
+from my_minipack.progress import ft_progress
+from my_minipack.logger import log
+
+__all__ = ["ft_progress", "log"]

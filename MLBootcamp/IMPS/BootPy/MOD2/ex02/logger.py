@@ -9,7 +9,7 @@ def log(function):
     def wrapper(*args, **kwargs):
         username = os.environ.get("USER", "unknown")
         start = time.time()
-        name = function.__name__.replace("_", " ").title()
+        name = function.__name__.replace("_", " ").title() #takes the functions name replaces underscores with spaces and capitalizes
         result = function(*args, **kwargs)
         elapsed = time.time() - start
         if elapsed >= 1:
